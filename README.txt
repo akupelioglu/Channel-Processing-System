@@ -45,11 +45,20 @@ This app require either of the following two:
  * MATLAB R2020b program or later versions. (Older versions possibly work too but not guaranteed.)
    Download free trial here 👉	https://uk.mathworks.com/campaigns/products/trials.html
 
+MATLAB
+------------
+The programming tool is MATLAB (The MathWorks Ltd, Matrix House, Cambridge, Business Park, Cambridge, CB4 0HH, United Kingdom). 
+It offers easy to apply a large database of built‐in and external algorithms to perform extensive post‐processing and visualization where necessary. 
+For such projects where error tolerances must be either not exist or small, it was preferred to build the application in a reliable environment using tested codes.
+Matlab has a massive community where any unexpected errors could be addressed. It allows cross operating systems integrability.
+
 
 RUNNING THE APP
 ----------------
-1- Unzip the folder. Folder called 'Mercedes' holds all the necessary files (30 files in total). Make sure to keep the files all in the same folder.
-2- All you need to do is to Double click on the 'app1.mlapp' to start the app. (It will also open the MATLAB software with the current folder selected as path.)
+Windows OS is suggested.
+1- Unzip the folder. Folder called 'Mercedes' holds all the necessary files (30 items in total). Make sure to keep the files all in the same folder.
+2- All you need to do is to Double click on the 'app1.mlapp' to start the app. (It will also open the MATLAB software with the application folder selected as path.)
+   (As the MATLAB initializes itself, it might take 3-4 seconds to open the application after MATLAB starts that please wait for it.)
 
    
 RUNNING THE APP - ALTERNATIVE 1
@@ -57,6 +66,7 @@ RUNNING THE APP - ALTERNATIVE 1
 1- Start the MATLAB as you would normally do in your operating system.
    (For example, type 'cmd' in your Windows start search box, click on Command Prompt. Then just type matlab and click enter.)
 2- Type in 'app1' in the Command Window of Matlab.
+
 
 RECOMMENDED MODULES
 ---------------------
@@ -70,8 +80,8 @@ RECOMMENDED MODULES
     If you do not know the path, then open MATLAB from the Applications folder, type matlabroot, and note the value. Exit MATLAB.	
     More at https://uk.mathworks.com/help/matlab/matlab_env/start-matlab-on-linux-platforms.html ) 
 
-2- In Matlab, click on 'APPS' tab from the top and then click on 'Install App' in File section. Then choose 'app1.mlappinstall'. Click on Install. 
-   Once the application is installed, Change your path to any other folder than 'Mercedes'.
+2- In Matlab, click on 'APPS' tab from the top and then click on 'Install App' in File section. Then choose 'app1.mlappinstall' in 'app1_resources' folder. Click on Install. 
+   Once the application is installed, Change your path to folder'Mercedes'.
    Find 'app1' from the drop down list in APPS section. Single click on it should open it.
 
 3- Provided codes can be prompted using the command window / new script.
@@ -110,9 +120,9 @@ ZIPPED FILES
 
      The followings are complementary files in this system.
     'App1_Code' folder has the app1.m code.
+    'app1_resources' folder has the app1.m icons and 'app1.mlappinstall' which is the application installer file that is selected while installing the app to the MATLAB (More in RECOMMENDED MODULES).
     'test.m' file was used to test the other 21 scripts that were provided in the zipped folder.
     'app1.mlapp' file is the application itself. (app1_code.m is just the copy of the App designer script).
-    'app1.mlappinstall' is the application installer file that is selected while installing the app to the MATLAB (More in RECOMMENDED MODULES).
     'app.prj' contains information about app1, such as included files and a description
     'logo_mercedes.png' is the logo picture used in the application canvas.
     'Channel Processing System' word document holds information for the given task.
@@ -167,10 +177,21 @@ function [ChkOk, Y] = function1(m, X,c)
    e. You may like to export(write) the calculated as well the loaded channels/parameters/metrics. Data precision decides the field width of each single data value to write into the desired format.
 
 	Alternative:
-	Copy and Run the following series of scripts in Matlab command window:
+	Copy and Run the following series of scripts in Matlab command window in WINDOWS OS:
 
 	[ChkOk,headers,data] 	= ReadFile(true,[pwd '\channels.txt'],',','.',Inf, 0);
 	[ChkOk,headers1,data1] 	= ReadFile(true,[pwd '\parameters.txt'],',','.',Inf, 0);
+	[ChkOk, X] 		= Check_Channel(headers, data, 'X');
+	[ChkOk, m] 		= Check_parametric(headers1, data1, 'm');
+	[ChkOk, c] 		= Check_parametric(headers1, data1, 'c');
+	[ChkOk, Y] 		= function1(m, X, c);
+	[ChkOk, A] 		= function3(X);
+	[ChkOk, B, b] 		= function2(A, Y);
+
+	Copy and Run the following series of scripts in Matlab command window in Macintosh OS:
+
+	[ChkOk,headers,data] 	= ReadFile(true,[pwd '/channels.txt'],',','.',Inf, 0);
+	[ChkOk,headers1,data1] 	= ReadFile(true,[pwd '/parameters.txt'],',','.',Inf, 0);
 	[ChkOk, X] 		= Check_Channel(headers, data, 'X');
 	[ChkOk, m] 		= Check_parametric(headers1, data1, 'm');
 	[ChkOk, c] 		= Check_parametric(headers1, data1, 'c');
