@@ -3,9 +3,6 @@ function [ChkOk, B, b] = function2(A, Y)
 % function2 = Calculates the channel "B" using B = A + Y and metric "b"
 % using b = mean(B)
 %-------------------------------------------------------------------------
-% Syntax:
-%    function2(A, Y)         
-%-------------------------------------------------------------------------
 % Inputs:
 % - A       : channel [data array]
 % - Y       : channel [data array]
@@ -15,6 +12,9 @@ function [ChkOk, B, b] = function2(A, Y)
 % - b       : metric  [scalar]
 % - ChkOk   : returns 1 if B and b created successfully and vice versa.
 %
+%-------------------------------------------------------------------------
+% Syntax:
+%    function2(A, Y)         
 %-------------------------------------------------------------------------
 
     % default value (in case of errors).
@@ -30,7 +30,7 @@ function [ChkOk, B, b] = function2(A, Y)
     if ~isempty(A) && ~isempty(Y) && length(A)==length(Y)
         
         B = A + Y;
-        b = mean(B);
+        b = mean(B(:));
         ChkOk = 1;
         
     end 

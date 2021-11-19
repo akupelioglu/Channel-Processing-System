@@ -1,12 +1,6 @@
 function [ChkOk] = WriteFile_ASCII(boolUserInput,DataArray,FileName,FileExt,colsdelim,decsdelim,ndecs)
 %-------------------------------------------------------------------------
-% Function to write an ASCII file with a channels structure data.
-%
-% Syntax: [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName);
-%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,FileExt);
-%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,FileExt,colsdelim);
-%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,colsdelim,decsdelim);
-%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,colsdelim,decsdelim,ndecs);
+% WriteFile_ASCII: to write an ASCII file with a channels structure data.
 %
 % Inputs:
 % - DataArray    : Channel or Parametric array with data to be exported: names, units and values.
@@ -18,6 +12,12 @@ function [ChkOk] = WriteFile_ASCII(boolUserInput,DataArray,FileName,FileExt,cols
 %
 % Outputs:
 % - ChkOk        : logical indicator of success/failure of operation.
+%-------------------------------------------------------------------------
+% Syntax: [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName);
+%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,FileExt);
+%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,FileExt,colsdelim);
+%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,colsdelim,decsdelim);
+%         [ChkOk,nFiles] = WriteFile_ASCII(<true/false>,DataArray,FileName,colsdelim,decsdelim,ndecs);
 %-------------------------------------------------------------------------
 % SPECIAL PARAMETER: boolUserInput (boolean)
 % This parameter is specified in order to distinguish a normal call (with
@@ -41,7 +41,7 @@ if isempty(FileExt)   || ~ischar(FileExt),    FileExt   = ''           ;end
 if isempty(colsdelim) || ~ischar(colsdelim),  colsdelim = ','          ;end
 if isempty(decsdelim) || ~ischar(decsdelim),  decsdelim = '.'          ;end
 if isempty(ndecs)     || ~isnumeric(ndecs) ,  ndecs     = 15           ;end
-if isempty(ndecs),                            ndecs = round(ndecs)     ;end     
+if isempty(ndecs),                            ndecs = round(ndecs)     ;end
 if strcmp(colsdelim,'\tab'),                  colsdelim = '\t'         ;end
 if isstring(FileExt),                         FileExt   =char(FileExt) ;end
 if colsdelim == decsdelim,                    decsdelim = '.'          ;end
@@ -53,11 +53,11 @@ if ndecs     <  0,                            ndecs     = 15           ;end
 % Detect Channel/Parametric structure in DataChannels:
 if iscell(DataArray) && ~isempty(DataArray) %Make sure it has at least one valid element.
     if ~isempty(FileName)
-
+        
         if isempty(FileExt)
             [FilePath,FileName,FileExt] = fileparts(FileName);
-            if isempty(FilePath), FilePath = pwd; end %Get the path to the current folder.
-            if isempty(FileExt), FileExt = '.txt'; end
+            if isempty(FilePath), FilePath = pwd;    end %Get the path to the current folder.
+            if isempty(FileExt),  FileExt  = '.txt'; end
             if boolUserInput, warning('No File Extension specified: default .txt format assigned'); end
             FileName = {[FilePath '\' FileName FileExt]};
             
@@ -95,68 +95,69 @@ if ChkOk
         %-------------------------------------------------------------
         fileID = fopen(FileName,'w');
         
-        %% -----------------------------------------------------------
-        % Write channels names and data:
-        %-------------------------------------------------------------
-        % Get channels names:
-        ChnsNames = '';
-        nChns = numel(DataArray);              % Number of channels
-        for i=1:nChns
-            ChnsNames{i} = DataArray{i}.Name;
-        end
-        
-        % Get largest channel length:
-        maxLen = 0;
-        for i=1:nChns
-            maxLen = max(maxLen, LenData(DataArray{i}));
-        end
-        
-        % Get channels data:
-        ChnsData = cell(maxLen,nChns);
-        ChnsData(:) = {''}; % initialisation
-        for c=1:nChns
-            Data = DataArray{c}.Data;
-            % Fill ChnsData adapting to different channel lengths:
-            [~,n] = size(Data);
-            for d=1:n
-                ChnsData(d,c) = {Data(d)};
+        if fileID>=3  %MATLAB returns valid file identifier [integer] equal or greater than 3
+            %% -----------------------------------------------------------
+            % Write channels names and data:
+            %-------------------------------------------------------------
+            % Get channels names:
+            ChnsNames = '';
+            nChns = numel(DataArray);              % Number of channels
+            for i=1:nChns
+                ChnsNames{i} = DataArray{i}.Name;
             end
-        end
-        
-        % Write channels data:
-        
-        for c=1:nChns
-            fprintf(fileID,'%s',ChnsNames{c});
-            for d=1:maxLen % Write by rows
-                data  = cell2mat(ChnsData(d,c));
-                tdata = '';
-                if isnumeric(data)
-                    if ~isnan(data)
-                        decs = ndecs;
-                        if decs==inf % write all decimals
-                            sdata = num2str(data);
-                            decs  = numel(sdata)-strfind(sdata,'.');
-                            if isempty(decs), decs = 0; end % integer
+            
+            % Get largest channel length:
+            maxLen = 0;
+            for i=1:nChns
+                maxLen = max(maxLen, LenData(DataArray{i}));
+            end
+            
+            % Get channels data:
+            ChnsData = cell(maxLen,nChns);
+            ChnsData(:) = {''}; % initialisation
+            for c=1:nChns
+                Data = DataArray{c}.Data;
+                % Fill ChnsData adapting to different channel lengths:
+                [~,n] = size(Data);
+                for d=1:n
+                    ChnsData(d,c) = {Data(d)};
+                end
+            end
+            
+            % Write channels data:
+            
+            for c=1:nChns
+                fprintf(fileID,'%s',ChnsNames{c});
+                for d=1:maxLen % Write by rows
+                    data  = cell2mat(ChnsData(d,c));
+                    tdata = '';
+                    if isnumeric(data)
+                        if ~isnan(data)
+                            decs = ndecs;
+                            if decs==inf % write all decimals
+                                sdata = num2str(data);
+                                decs  = numel(sdata)-strfind(sdata,'.');
+                                if isempty(decs), decs = 0; end % integer
+                            end
+                            tdata = sprintf(['%.' sprintf('%d', decs) 'f'],data);
+                            if decsdelim~='.', tdata = strrep(tdata,'.',decsdelim);end
                         end
-                        tdata = sprintf(['%.' sprintf('%d', decs) 'g'],data);
-                        if decsdelim~='.', tdata = strrep(tdata,'.',decsdelim);end
+                    else
+                        if ~isnan(data)
+                            tdata = char(data);
+                        end
                     end
-                else
-                    if ~isnan(data)
-                        tdata = char(data);
+                    if ~strcmp(tdata, '')
+                        fprintf(fileID,[colsdelim ' %s'],tdata);
                     end
                 end
-                if ~strcmp(tdata, '')
-                    fprintf(fileID,[colsdelim ' %s'],tdata);
-                end
+                fprintf(fileID,'\r\n'); % add new line character by row
             end
-            fprintf(fileID,'\r\n'); % add new line character by row
+            %% -----------------------------------------------------------
+            % Close file:
+            %-------------------------------------------------------------
+            status = fclose(fileID);
         end
-        %% -----------------------------------------------------------
-        % Close file:
-        %-------------------------------------------------------------
-        status = fclose(fileID);
-        
     end
 end
 

@@ -10,7 +10,7 @@ function [ChkOk, FileDefPath, FileDefName] = Chk_OutputFile(boolUserInput,FileNa
 % - ChkOk        : logical indicator of success/failure of operation.
 % - FileDefPath  : logical indicator of success/failure of operation.
 % - FileDefName  : logical indicator of success/failure of operation.
-%
+%-------------------------------------------------------------------------
 % Syntax:
 %    Chk_OutputFile(<true/false>,FileName)          : Checks FileName exists and asks for overwriting.
 %    Chk_OutputFile(<true/false>,FileName, FileExt) : Also forces FileName to have FileExt extension.

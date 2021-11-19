@@ -2,9 +2,6 @@ function [ChkOk, C] = function4(X,b)
 %-------------------------------------------------------------------------
 % function4 = Calculates the channel "C" using C = X + b.
 %-------------------------------------------------------------------------
-% Syntax:
-%    function4(X,b)         
-%-------------------------------------------------------------------------
 % Inputs:
 % - X       : channel [data array]
 % - b       : metric  [scalar]
@@ -14,7 +11,9 @@ function [ChkOk, C] = function4(X,b)
 % - ChkOk   : returns 1 if B and b created successfully and vice versa.
 %
 %-------------------------------------------------------------------------
-
+% Syntax:
+%    function4(X,b)         
+%-------------------------------------------------------------------------
     % default value (in case of errors).
     C       = []; 
     ChkOk   = 0; 

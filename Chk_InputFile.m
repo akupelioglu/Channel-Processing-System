@@ -8,8 +8,6 @@ function ChkOk = Chk_InputFile(FileName,FileExt)
 % 
 % Outputs:
 % - ChkOk        : logical indicator of success/failure of operation.
-% - headers      : cell array with channels names and units.
-% - data         : matrix of data in file.
 %-------------------------------------------------------------------------
 % Syntax:
 %    Chk_InputFile(<true/false>,FileName)          : Checks FileName exists.

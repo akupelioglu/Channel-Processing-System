@@ -1,6 +1,6 @@
 function [ChkOk,Chanarray] = GetChannels(boolUserInput,FileName,colsdelim_,decsdelim_,nLinesData_,nLinesOffset_)
 %-------------------------------------------------------------------------
-% ReadFile = Reads a file from different formats and converts into system specific format.
+% GetChannels = Reads a file data and converts into channel cell array.
 %
 % Inputs:
 % - FileName : absolute or relative file path.

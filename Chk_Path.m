@@ -9,7 +9,7 @@ function [ChkOk, Path] = Chk_Path(boolUserInput,Path,boolTryCreate)
 % Outputs:
 % - ChkOk           : logical indicator of success/failure of operation.
 % - Path            : logical indicator of success/failure of operation.
-%
+%-------------------------------------------------------------------------
 % Syntax:
 %    Chk_Path(<true/false>,Path)      : Checks Path exists.
 %    Chk_Path(<true/false>,Path,true) : Checks Path exists. If not, tries to create it.
@@ -19,7 +19,7 @@ function [ChkOk, Path] = Chk_Path(boolUserInput,Path,boolTryCreate)
 % user interactions) from an automatic call (software automated tests).
 %-------------------------------------------------------------------------
     % Default values:
-    ChkOk = false;
+    ChkOk = false; %#ok<NASGU>
     
     % Check input parameters:
     if nargin<1, boolUserInput = false;end

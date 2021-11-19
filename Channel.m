@@ -189,37 +189,40 @@ classdef Channel
                 end
             end
         end
-        
-        %-----------------------------------------------------------------
-        function row = GetRowAt(obj,RefValue)
-        % GET ROW AT: gets row index at a first reference value occurrence.
-        %-----------------------------------------------------------------
-            row = [];
-            
-            % Check input parameters:
-            if nargin<2, RefValue = []; end
-            if isnumeric(RefValue), RefValue = []; end
-            
-            % Get row/s:
-            if ~isempty(obj) && ~isempty(RefValue)
-                row    = zeros(size(obj));
-                row(:) = -1; % row not found
-                for n=1:numel(obj)
-                    Chn = obj(n);
-                    
-                    if ~isempty(Chn.Data)
-                        if RefValue>=min(Chn.Data) && RefValue<=max(Chn.Data)
-                            if RefValue>Chn.Data(1)
-                                row_idx = Chn.Data<=RefValue;
-                            else
-                                row_idx = Chn.Data>=RefValue;
-                            end
-                            row_idx = find(row_idx,1);
-                            if ~isempty(row_idx), row(n) = row_idx(1); end
-                        end
-                    end
-                end
-            end
-        end
+%--------------------------------------------------------------------------           
+...This Code can be extended with additional functions
+%--------------------------------------------------------------------------        
+%         %----------------------------------------------------------------
+%         function row = GetRowAt(obj,RefValue)
+%         % GET ROW AT: gets row index at a first reference value occurrence.
+%         %----------------------------------------------------------------
+%             row = [];
+%             
+%             % Check input parameters:
+%             if nargin<2, RefValue = []; end
+%             if ~isnumeric(RefValue), RefValue = []; end
+%             
+%             % Get row/s:
+%             if ~isempty(obj) && ~isempty(RefValue)
+%                 row    = zeros(size(obj));
+%                 row(:) = -1; % row not found
+%                 for n=1:numel(obj)
+%                     Chn = obj(n);
+%                     
+%                     if ~isempty(Chn.Data)
+%                         if RefValue>=min(Chn.Data) && RefValue<=max(Chn.Data)
+%                             if RefValue>Chn.Data(1)
+%                                 row_idx = Chn.Data<=RefValue;
+%                             else
+%                                 row_idx = Chn.Data>=RefValue;
+%                             end
+%                             row_idx = find(row_idx,1);
+%                             if ~isempty(row_idx), row(n) = row_idx(1); end
+%                         end
+%                     end
+%                 end
+%             end
+%         end
+%--------------------------------------------------------------------------     
     end
 end

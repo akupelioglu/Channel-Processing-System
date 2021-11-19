@@ -2,9 +2,6 @@ function [ChkOk, A] = function3(X)
 %-------------------------------------------------------------------------
 % function3 = Calculates the channel "A" using A = 1 ./ X.
 %-------------------------------------------------------------------------
-% Syntax:
-%    function3(X)         
-%-------------------------------------------------------------------------
 % Inputs:
 % - X       : channel [data array]
 % 
@@ -13,7 +10,9 @@ function [ChkOk, A] = function3(X)
 % - ChkOk   : returns 1 if B and b created successfully and vice versa.
 %
 %-------------------------------------------------------------------------
-
+% Syntax:
+%    function3(X)         
+%-------------------------------------------------------------------------
     % default value (in case of errors).
     A       = []; 
     ChkOk   = 0; 

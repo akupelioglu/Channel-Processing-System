@@ -7,7 +7,10 @@ function [ChkOk,headers, data] = LoadButtonPushed(colsdelim_,decsdelim_,nLinesDa
 %    [ChkOk,headers,data] = LoadButtonPushed(colsdelim_,decsdelim_,nLinesData_,nLinesOffset_)      
 %-------------------------------------------------------------------------
 % Inputs:
-% - ex_Chans      : pre-existing cell array of channels.
+% - colsdelim_    : columns  delimiter in ascii file (defaults to ',').
+% - decsdelim_    : decimals delimiter in ascii file (defaults to '.', must be positive).
+% - nLinesData_   : number of lines to read in (defaults to inf, must be positive).
+% - nLinesOffset_ : number of lines to skip(defaults to 0, must be 0 or positive).
 %
 % Output:
 % - headers : channel/parameter/metric from the selected file [data array]

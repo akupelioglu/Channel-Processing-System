@@ -3,9 +3,6 @@ function [ChkOk, m] = Check_parametric(headers, data, b)
 % Check_parametric = Checks if metric exists in given headers cell array and 
 % if exists, returns its corresponding data from the given data array.
 %-------------------------------------------------------------------------
-% Calling Syntax:
-%    [ChkOk, C] = Check_parametric(headers, data, b)        
-%-------------------------------------------------------------------------
 % Inputs:
 % - headers      : cell array with channels names and units.
 % - data         : matrix of data.
@@ -15,6 +12,9 @@ function [ChkOk, m] = Check_parametric(headers, data, b)
 % - m       : requested parametric [data array]
 % - ChkOk   : Boolean, returns 1 if B and b created successfully and vice versa.
 %
+%-------------------------------------------------------------------------
+% Calling Syntax:
+%    [ChkOk, C] = Check_parametric(headers, data, b)        
 %-------------------------------------------------------------------------
 
     % default value (in case of errors).

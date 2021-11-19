@@ -10,8 +10,11 @@ function [ChkOk,ColsDelim,DecsDelim,nlData,nlOffset] = CheckFileOptions(colsdeli
 % - nLinesOffset_ : number of lines to skip(defaults to 0, must be 0 or positive).
 %
 % Outputs:
-% - ChkOk      : logical indicator of success/failure of operation.
-% - options    : validated options [struct]
+% - ChkOk         : logical indicator of success/failure of operation.
+% - colsdelim     : columns  delimiter in ascii file.
+% - decsdelim     : decimals delimiter in ascii file.
+% - nLinesData    : number of lines to read.
+% - nLinesOffset  : number of lines to skip.
 %-------------------------------------------------------------------------
 % Syntax: CheckFileOptions(boolUserInput,FileName,colsdelim_,decsdelim_,nLinesData_,nLinesOffset_)
 %-------------------------------------------------------------------------

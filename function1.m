@@ -2,18 +2,19 @@ function [ChkOk, Y] = function1(m, X,c)
 %-------------------------------------------------------------------------
 % function1 = Calculates the channel Y using the equation Y = mx + c
 %-------------------------------------------------------------------------
-% Syntax:
-%    function1(m, X,c)          
-%-------------------------------------------------------------------------
+
 % Inputs:
 % - m       : parameter [scalar]
 % - X       : channel [data array]
 % - c       : parameter [scalar]
 % 
-% Output:
+% Outputs:
 % - Y       : channel [data array]
 % - ChkOk   : returns 1 if channel Y created successfully and vice versa.
 %
+%-------------------------------------------------------------------------
+% Calling Syntax:
+%    function1(m, X,c)          
 %-------------------------------------------------------------------------
 
     Y       = []; % default value (in case of errors).

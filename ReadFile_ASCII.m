@@ -2,11 +2,6 @@ function [ChkOk,headers,data] = ReadFile_ASCII(boolUserInput,FileName,colsdelim_
 %-------------------------------------------------------------------------
 % Function to read text or csv ASCII files.
 %
-% Syntax: [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName);
-%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim);
-%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim);
-%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim,nLinesData,nLinesOffset);
-%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim,nLinesHeader,nLinesData,nLinesOffset);
 %
 % Inputs:
 % - FileName     : absolute or relative file path. [char]
@@ -23,6 +18,12 @@ function [ChkOk,headers,data] = ReadFile_ASCII(boolUserInput,FileName,colsdelim_
 % SPECIAL PARAMETER: boolUserInput (boolean)
 % This parameter is specified in order to distinguish a normal call (with
 % user interactions) from an automatic call (software automated tests).
+%-------------------------------------------------------------------------
+% Syntax: [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName);
+%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim);
+%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim);
+%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim,nLinesData,nLinesOffset);
+%         [ChkOk,headers,data] = ReadFile_ASCII(<true/false>,FileName,colsdelim,decsdelim,nLinesHeader,nLinesData,nLinesOffset);     
 %-------------------------------------------------------------------------
 % ReadFile_ASCII is a method based on:
 % https://es.mathworks.com/matlabcentral/fileexchange/40189-load_ascii
@@ -104,7 +105,7 @@ if ChkOk
                     continue;
                 end
                 
-                % get data as cell array:
+                % get channel name and data as cell array:
                 dline = strsplit(char(fline),colsdelim);
                 idtxt = cellfun('isclass', dline, 'char');
                 dline(idtxt) = strrep(dline(idtxt), ' ', ''); % delete spaces.
@@ -113,7 +114,7 @@ if ChkOk
                 end
                 
                 
-                % convert get data as doubles:
+                % convert get data as doubles and channel name as char:
                 Tmp_Name = dline{1}; %first element is the channel name
                 if isa(Tmp_Name,'char')
                     
