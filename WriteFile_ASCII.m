@@ -53,24 +53,44 @@ if ndecs     <  0,                            ndecs     = 15           ;end
 % Detect Channel/Parametric structure in DataChannels:
 if iscell(DataArray) && ~isempty(DataArray) %Make sure it has at least one valid element.
     if ~isempty(FileName)
-        
-        if isempty(FileExt)
+
+        if isempty(FileExt) && ispc
             [FilePath,FileName,FileExt] = fileparts(FileName);
             if isempty(FilePath), FilePath = pwd;    end %Get the path to the current folder.
             if isempty(FileExt),  FileExt  = '.txt'; end
             if boolUserInput, warning('No File Extension specified: default .txt format assigned'); end
             FileName = {[FilePath '\' FileName FileExt]};
-            
-        elseif ~isempty(FileExt)
+
+        elseif ~isempty(FileExt) && ispc
             [FilePath,FileName,~] = fileparts(FileName);
             if isempty(FilePath), FilePath = pwd; end %Get the path to the current folder.
             FileName = {[FilePath '\' FileName FileExt]};
+
+        elseif isempty(FileExt) && ismac
+            [FilePath,FileName,FileExt] = fileparts(FileName);
+            if isempty(FilePath), FilePath = pwd;    end %Get the path to the current folder.
+            if isempty(FileExt),  FileExt  = '.txt'; end
+            if boolUserInput, warning('No File Extension specified: default .txt format assigned'); end
+            FileName = {[FilePath '/' FileName FileExt]};
+
+        elseif ~isempty(FileExt) && ismac
+            [FilePath,FileName,~] = fileparts(FileName);
+            if isempty(FilePath), FilePath = pwd; end %Get the path to the current folder.
+            FileName = {[FilePath '/' FileName FileExt]};
         end
     else
-        FilePath = pwd; %Get the path to the current folder.
-        if isempty(FileExt) || ~strcmp(FileExt, '.*'), FileExt = '.txt'; end
-        FileName = {[FilePath '\' char(datetime('now','format','s-MS'))  FileExt]};  %Use specific data and time as FileName
-        FileName = strrep(FileName,'-','_');
+        if ispc
+            FilePath = pwd; %Get the path to the current folder.
+            if isempty(FileExt) || ~strcmp(FileExt, '.*'), FileExt = '.txt'; end
+            FileName = {[FilePath '\' char(datetime('now','format','s-MS'))  FileExt]};  %Use specific data and time as FileName
+            FileName = strrep(FileName,'-','_');
+        elseif ismac
+            FilePath = pwd; %Get the path to the current folder.
+            if isempty(FileExt) || ~strcmp(FileExt, '.*'), FileExt = '.txt'; end
+            FileName = {[FilePath '/' char(datetime('now','format','s-MS'))  FileExt]};  %Use specific data and time as FileName
+            FileName = strrep(FileName,'-','_');
+        end
+
     end
     ChkOk = true;
 end
